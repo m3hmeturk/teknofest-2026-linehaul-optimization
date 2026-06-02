@@ -1,0 +1,18 @@
+# Sanal ortam
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Excel gecici kilit dosyalari
+~$*.xlsx
+
+# Isletim sistemi
+.DS_Store
+Thumbs.db
+
+# VSCode kisisel ayarlar
+.vscode/

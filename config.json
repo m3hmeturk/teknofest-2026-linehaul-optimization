@@ -1,0 +1,24 @@
+{
+  "paths": {
+    "koordinatlar": "data/Koordinatlar.xlsx",
+    "kiralik_araclar": "data/Kiralık_Araçlar.xlsx",
+    "desi_talep": "data/Desi_talep.xlsx",
+    "arac_kapasite_maliyet": "data/Araç_Kapasite_Maliyet.xlsx",
+    "outputs": "outputs"
+  },
+  "forecast": {
+    "hafta_baslangic": "2026-05-11",
+    "hafta_bitis": "2026-05-17",
+    "guvenlik_k": 2.5
+  },
+  "varsayimlar": {
+    "gidis_donus_carpani": 2,
+    "kiralik_modeli": "rotaya_sabit",
+    "kiralik_kira_mantigi": "sabit_filo"
+  },
+  "veri_duzeltmeleri": {
+    "eksik_koordinatlar": {
+      "Kocaeli": { "enlem": 40.76, "boylam": 29.94 }
+    }
+  }
+}
