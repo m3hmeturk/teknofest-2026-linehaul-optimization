@@ -34,18 +34,27 @@ def main():
     sonuc_df = optimize(data, mesafe_df, maliyet_df, tahmin_df)
 
     print("[5/5] Ciktilar yaziliyor...")
+    # Arac kapasite ve maliyet lookup (export icin)
+    arac_kap = dict(zip(data["arac"]["Araç Adı"], data["arac"]["Kapasite (desi)"]))
+    maliyet_lk = {}
+    for _, m in maliyet_df.iterrows():
+        maliyet_lk[(m["cikis"], m["varis"], m["arac_tipi"])] = {
+            "kiralik_maliyet": m["kiralik_maliyet"],
+            "spot_maliyet": m["spot_maliyet"],
+        }
+
     t_yol = export_tahmin(tahmin_df, outputs_dir)
-    p_yol = export_plan(sonuc_df, outputs_dir)
+    p_yol, plan_df = export_plan(sonuc_df, arac_kap, maliyet_lk, outputs_dir)
     ozet = maliyet_ozeti(sonuc_df)
     r_yol = write_readme(ozet, kok)
 
     print("\n=== TAMAMLANDI ===")
     print(f"Tahmin       : {t_yol}")
-    print(f"Arac plani   : {p_yol}")
+    print(f"Arac plani   : {p_yol} ({len(plan_df)} arac satiri)")
     print(f"README       : {r_yol}")
     print(f"\nTOPLAM MALIYET: {ozet['toplam_maliyet']:,.2f} TL")
-    print(f"  Spot        : {ozet['spot_maliyet']:,.2f} TL")
-    print(f"  Kiralik tam : {ozet['kiralik_tam_maliyet']:,.2f} TL")
+    print(f"  Spot    : {ozet['spot_maliyet']:,.2f} TL")
+    print(f"  Kiralik : {ozet['kiralik_maliyet']:,.2f} TL")
 
 
 if __name__ == "__main__":

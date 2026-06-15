@@ -1,24 +1,31 @@
-# Yapay Zeka Destekli Lojistik Anahat Optimizasyonu - Dataset A (MVP)
+# TEKNOFEST 2026 - Lojistik Anahat Optimizasyonu (Dataset A / MVP)
 
 ## Yaklasim
-- Talep Tahmini: Rota bazli, haftanin gunune duyarli agirlikli ortalama (baseline).
-- Optimizasyon: Google OR-Tools MIP (CBC). Her gun icin ayri model.
-- Kiralik filo: Rotaya sabit, gunluk kira batik maliyet. Doldurma maksimize edilir.
-- Spot: Kalan talep en dusuk maliyetli spot araclarla karsilanir.
+- Talep Tahmini: Rota bazli, haftanin gunune duyarli agirlikli ortalama
+  + dinamik guvenlik payi (ort + k*sapma).
+- Optimizasyon: OR-Tools MIP (CBC). Her gun bagimsiz.
+- Kiralik filo: rotaya sabit, ZORUNLU + oncelikli (her gun cikar).
+- Spot: kalan talep en dusuk maliyetle; minimum %10 doluluk kisiti.
+- Mesafe: kus ucusu (Haversine), TEK YON.
+- Maliyet: kiralik (kira+km) + spot (sabit+km).
 - Konsolidasyon: Dataset A'da kapali (dogrudan rota).
 
-## 11-17 Mayis Haftasi Maliyet Sonuclari
+## 11-17 Mayis Haftasi Maliyet
 
 | Kalem | Tutar (TL) |
 |---|---|
-| Spot Arac Maliyeti | 19,931,947.45 |
-| Kiralik km Maliyeti | 340,211.53 |
-| Kiralik Tam Maliyet (kira dahil) | 956,211.53 |
-| TOPLAM MALIYET | 20,888,158.98 |
+| Spot Maliyeti | 13,586,339.64 |
+| Kiralik Maliyeti (kira+km) | 802,743.90 |
+| TOPLAM MALIYET | 14,389,083.54 |
 
 ## Ciktilar
-- outputs/tahmin_talep.xlsx : Tahmin edilen talep
-- outputs/arac_planlama.xlsx : Arac planlama / optimizasyon ciktisi
+- outputs/tahmin_talep.xlsx
+- outputs/arac_planlama.xlsx
+
+## Notlar
+- 560 desi altindaki cok kucuk taleplerde, en kucuk arac (Kamyonet)
+  bile %10 doluluga ulasamadigindan yuk yine de tasinmistir (kacinilmaz
+  uc durum, ~17 satir). Yuku tasimamak yerine tasimayi tercih ettik.
 
 ## Calistirma
     python main.py

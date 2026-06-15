@@ -42,15 +42,16 @@ def build_distance_matrix(koord, gidis_donus_carpani=2):
 
 def build_cost_table(mesafe_df, arac):
     """Her (rota x arac tipi) icin maliyetleri uretir.
-
-    arac kolonlari (Arac_Kapasite_Maliyet):
-      'Araç Adı', 'Kapasite (desi)',
-      'Kiralık Araç Günlük Kira (TL)', 'Kiralık Araç Kilometre Başına Maliyet (TL)',
-      'Spot Araç Sabit Günlük Maliyet (TL)', 'Spot Kilometre Başına Maliyet (TL)'
+    Yeni kurallar:
+      - Mesafe TEK YON (gidis_donus_km artik tek yon mesafesini tasiyor;
+        carpani config'de 1).
+      - Kiralik ZORUNLU -> maliyeti = kira + km (tam). Optimizasyon ayrimi
+        icin yine de tutuyoruz ama kiralik artik daima dispatch edilecek.
+      - Spot = sabit + km.
     """
     kayitlar = []
     for _, m in mesafe_df.iterrows():
-        gd = m["gidis_donus_km"]
+        mesafe = m["gidis_donus_km"]  # config carpani=1 oldugu icin bu TEK YON
         for _, a in arac.iterrows():
             tip = a["Araç Adı"]
             kap = a["Kapasite (desi)"]
@@ -60,20 +61,18 @@ def build_cost_table(mesafe_df, arac):
             spot_sabit = a["Spot Araç Sabit Günlük Maliyet (TL)"]
             spot_km = a["Spot Kilometre Başına Maliyet (TL)"]
 
-            # Bir aracin bu rotada tam maliyeti
-            kiralik_tam = kiralik_kira + kiralik_km * gd      # raporlama icin
-            kiralik_opt = kiralik_km * gd                     # optimizasyon (kira batik)
-            spot_tam = spot_sabit + spot_km * gd              # spot = hem rapor hem opt
+            # Kiralik tam maliyet = kira + km (zorunlu, toplama dahil)
+            kiralik_tam = kiralik_kira + kiralik_km * mesafe
+            # Spot = sabit gunluk + km
+            spot_tam = spot_sabit + spot_km * mesafe
 
             kayitlar.append({
                 "cikis": m["cikis"],
                 "varis": m["varis"],
                 "arac_tipi": tip,
                 "kapasite": kap,
-                "gidis_donus_km": gd,
-                "kiralik_tam_maliyet": round(kiralik_tam, 2),
-                "kiralik_opt_maliyet": round(kiralik_opt, 2),
-                "kiralik_gunluk_kira": kiralik_kira,
+                "mesafe_km": mesafe,
+                "kiralik_maliyet": round(kiralik_tam, 2),
                 "spot_maliyet": round(spot_tam, 2),
             })
     return pd.DataFrame(kayitlar)
@@ -108,5 +107,5 @@ if __name__ == "__main__":
     print(f"Toplam satir (rota x arac tipi): {len(maliyet_df)}")
     ornek = maliyet_df[(maliyet_df["cikis"] == "İstanbul") & (maliyet_df["varis"] == "Yalova")]
     print("\nOrnek rota Istanbul -> Yalova:")
-    print(ornek[["arac_tipi", "kapasite", "gidis_donus_km",
-                 "kiralik_opt_maliyet", "kiralik_tam_maliyet", "spot_maliyet"]].to_string(index=False))
+    print(ornek[["arac_tipi", "kapasite", "mesafe_km",
+                 "kiralik_maliyet", "spot_maliyet"]].to_string(index=False))

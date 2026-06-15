@@ -1,9 +1,9 @@
 {
   "paths": {
     "koordinatlar": "data/Koordinatlar.xlsx",
-    "kiralik_araclar": "data/Kiralık_Araçlar.xlsx",
+    "kiralik_araclar": "data/Kiralık_Arac_lar.xlsx",
     "desi_talep": "data/Desi_talep.xlsx",
-    "arac_kapasite_maliyet": "data/Araç_Kapasite_Maliyet.xlsx",
+    "arac_kapasite_maliyet": "data/Arac__Kapasite_Maliyet.xlsx",
     "outputs": "outputs"
   },
   "forecast": {
@@ -12,13 +12,11 @@
     "guvenlik_k": 2.5
   },
   "varsayimlar": {
-    "gidis_donus_carpani": 2,
+    "gidis_donus_carpani": 1,
     "kiralik_modeli": "rotaya_sabit",
-    "kiralik_kira_mantigi": "sabit_filo"
+    "kiralik_kira_mantigi": "zorunlu_tam_maliyet"
   },
   "veri_duzeltmeleri": {
-    "eksik_koordinatlar": {
-      "Kocaeli": { "enlem": 40.76, "boylam": 29.94 }
-    }
+    "eksik_koordinatlar": {}
   }
 }
