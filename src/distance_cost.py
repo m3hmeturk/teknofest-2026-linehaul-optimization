@@ -1,10 +1,10 @@
 """
 Katman 2 - Mesafe & Maliyet Matrisi
 ------------------------------------
-- Haversine ile her TM cifti arasi km (gidis-donus icin x2).
+- Haversine ile her TM cifti arasi kus ucusu km (TEK YON; carpani=1).
 - Her (rota x arac tipi) icin kiralik ve spot maliyetleri.
-- Sabit filo karari: kiralik gunluk kira BATIK -> optimizasyon amacina
-  girmez. Optimizasyon icin: kiralik = sadece km, spot = sabit + km.
+- Kiralik ZORUNLU: maliyet = kira + km (toplama dahil).
+- Spot: maliyet = sabit gunluk + km.
 """
 
 import math

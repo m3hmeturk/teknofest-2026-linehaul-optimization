@@ -4,3 +4,5 @@ openpyxl
 geopy
 ortools
 lightgbm
+scikit-learn
+statsmodels

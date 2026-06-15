@@ -9,7 +9,8 @@
   "forecast": {
     "hafta_baslangic": "2026-05-11",
     "hafta_bitis": "2026-05-17",
-    "guvenlik_k": 2.5
+    "guvenlik_k": 2.5,
+    "kuantil": 0.35
   },
   "varsayimlar": {
     "gidis_donus_carpani": 1,

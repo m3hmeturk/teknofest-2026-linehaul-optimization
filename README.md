@@ -1,8 +1,8 @@
 # TEKNOFEST 2026 - Lojistik Anahat Optimizasyonu (Dataset A / MVP)
 
 ## Yaklasim
-- Talep Tahmini: Rota bazli, haftanin gunune duyarli agirlikli ortalama
-  + dinamik guvenlik payi (ort + k*sapma).
+- Talep Tahmini: Rota bazli, haftanin ayni gununun son 14 haftasinin
+  %35 kuantili + dinamik guvenlik payi (kuantil + k*sapma, k=2.5).
 - Optimizasyon: OR-Tools MIP (CBC). Her gun bagimsiz.
 - Kiralik filo: rotaya sabit, ZORUNLU + oncelikli (her gun cikar).
 - Spot: kalan talep en dusuk maliyetle; minimum %10 doluluk kisiti.
@@ -14,9 +14,9 @@
 
 | Kalem | Tutar (TL) |
 |---|---|
-| Spot Maliyeti | 13,586,339.64 |
+| Spot Maliyeti | 13,381,705.41 |
 | Kiralik Maliyeti (kira+km) | 802,743.90 |
-| TOPLAM MALIYET | 14,389,083.54 |
+| TOPLAM MALIYET | 14,184,449.31 |
 
 ## Ciktilar
 - outputs/tahmin_talep.xlsx

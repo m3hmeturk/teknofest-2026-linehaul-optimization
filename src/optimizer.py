@@ -32,10 +32,6 @@ def _maliyet_lookup(maliyet_df):
     return lk
 
 
-def _en_kucuk_kapasite(arac):
-    return min(arac["Kapasite (desi)"])
-
-
 def solve_spot(residual, cost_lk_rota, arac_tipleri, min_doluluk=0.10):
     """Residual talebi en ucuz spot kombinasyonuyla karsilar.
     Kisit: residual <= toplam_kapasite <= residual / min_doluluk.
