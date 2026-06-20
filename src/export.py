@@ -87,42 +87,18 @@ def maliyet_ozeti(sonuc_df):
     }
 
 
-def write_readme(ozet, kok_dir):
+def write_maliyet_ozeti(ozet, outputs_dir):
+    """Maliyet ozetini outputs/maliyet_ozeti.txt'e yazar (README elle yazili)."""
     satirlar = [
-        "# TEKNOFEST 2026 - Lojistik Anahat Optimizasyonu (Dataset A / MVP)",
+        "=== 11-17 MAYIS HAFTASI MALIYET OZETI ===",
         "",
-        "## Yaklasim",
-        "- Talep Tahmini: Rota bazli, haftanin ayni gununun son 14 haftasinin",
-        "  %35 kuantili + dinamik guvenlik payi (kuantil + k*sapma, k=2.5).",
-        "- Optimizasyon: OR-Tools MIP (CBC). Her gun bagimsiz.",
-        "- Kiralik filo: rotaya sabit, ZORUNLU + oncelikli (her gun cikar).",
-        "- Spot: kalan talep en dusuk maliyetle; minimum %10 doluluk kisiti.",
-        "- Mesafe: kus ucusu (Haversine), TEK YON.",
-        "- Maliyet: kiralik (kira+km) + spot (sabit+km).",
-        "- Konsolidasyon: Dataset A'da kapali (dogrudan rota).",
-        "",
-        "## 11-17 Mayis Haftasi Maliyet",
-        "",
-        "| Kalem | Tutar (TL) |",
-        "|---|---|",
-        f"| Spot Maliyeti | {ozet['spot_maliyet']:,.2f} |",
-        f"| Kiralik Maliyeti (kira+km) | {ozet['kiralik_maliyet']:,.2f} |",
-        f"| TOPLAM MALIYET | {ozet['toplam_maliyet']:,.2f} |",
-        "",
-        "## Ciktilar",
-        "- outputs/tahmin_talep.xlsx",
-        "- outputs/arac_planlama.xlsx",
-        "",
-        "## Notlar",
-        "- 560 desi altindaki cok kucuk taleplerde, en kucuk arac (Kamyonet)",
-        "  bile %10 doluluga ulasamadigindan yuk yine de tasinmistir (kacinilmaz",
-        "  uc durum, ~17 satir). Yuku tasimamak yerine tasimayi tercih ettik.",
-        "",
-        "## Calistirma",
-        "    python main.py",
+        f"Spot Maliyeti              : {ozet['spot_maliyet']:>16,.2f} TL",
+        f"Kiralik Maliyeti (kira+km) : {ozet['kiralik_maliyet']:>16,.2f} TL",
+        f"{'-'*45}",
+        f"TOPLAM MALIYET             : {ozet['toplam_maliyet']:>16,.2f} TL",
         "",
     ]
-    yol = os.path.join(kok_dir, "README.md")
+    yol = os.path.join(outputs_dir, "maliyet_ozeti.txt")
     with open(yol, "w", encoding="utf-8") as f:
         f.write("\n".join(satirlar))
     return yol

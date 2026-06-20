@@ -12,7 +12,7 @@ from data_loader import load_all
 from distance_cost import build_all as build_costs
 from forecast import build_all as build_forecast
 from optimizer import optimize
-from export import export_tahmin, export_plan, maliyet_ozeti, write_readme
+from export import export_tahmin, export_plan, maliyet_ozeti, write_maliyet_ozeti
 
 
 def main():
@@ -46,12 +46,12 @@ def main():
     t_yol = export_tahmin(tahmin_df, outputs_dir)
     p_yol, plan_df = export_plan(sonuc_df, arac_kap, maliyet_lk, outputs_dir)
     ozet = maliyet_ozeti(sonuc_df)
-    r_yol = write_readme(ozet, kok)
+    r_yol = write_maliyet_ozeti(ozet, outputs_dir)
 
     print("\n=== TAMAMLANDI ===")
     print(f"Tahmin       : {t_yol}")
     print(f"Arac plani   : {p_yol} ({len(plan_df)} arac satiri)")
-    print(f"README       : {r_yol}")
+    print(f"Maliyet ozeti: {r_yol}")
     print(f"\nTOPLAM MALIYET: {ozet['toplam_maliyet']:,.2f} TL")
     print(f"  Spot    : {ozet['spot_maliyet']:,.2f} TL")
     print(f"  Kiralik : {ozet['kiralik_maliyet']:,.2f} TL")
